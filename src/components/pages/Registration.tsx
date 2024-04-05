@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom"
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import { useNavigate } from "react-router/";
+import UserService from "../service/UserService";
 
 
 const Registration = () => {
@@ -6,35 +8,34 @@ const Registration = () => {
 
     return ( 
         <div className="Registration">
-            <h3>Registration</h3>
+           <h2>Registration</h2>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          enableReinitialize
+          validate={(values) => {
+            const errors: { email?: string } = {};
 
-            <Formik
-      initialValues={{ email: "", password: "" }}
-      enableReinitialize
-      validate={(values) => {
-        const errors: { email?: string } = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
 
-        if (!values.email) {
-          errors.email = "Required";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address";
-        }
-
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        UserService()
-        .logIn(values.email, values.password)
-        .then(response)=> {
-            localStorage.setItem("accessToken", response["accessToken"])
-            navigate("/author", {replace:true});
-        });
-        setSubmitting(false); 
-      }}
-    >
-      {({ isSubmitting, isValid }) => (
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            UserService()
+              .logIn(values.email, values.password)
+              .then((response) => {
+                localStorage.setItem("accessToken", response["accessToken"])
+                navigate("/author", { replace: true });
+              });
+            setSubmitting(false);
+          }}
+        >
+          {({ isSubmitting, isValid }) => (
             <Form>
               <label htmlFor="email">
                 <br />
@@ -59,5 +60,7 @@ const Registration = () => {
           )}
         </Formik>
       </div>
-    </>
   );
+};
+
+export default Registration;
