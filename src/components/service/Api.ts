@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
  
 const BASE_URL = `http://localhost:3030`;
  
@@ -7,16 +7,16 @@ export const defaultAxiosInstance : AxiosInstance = axios.create({
 })
  
  
-export async function loginAndGetToken(username: string, password: string) {
-    try {
-        const response = await defaultAxiosInstance.post('/login', {
-            username,
-            password
-        });
-        return response.data.accessToken;
-    } catch (error) {
-        console.error('Error logging in:', error);
-        return null;
+defaultAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
+    let correctPath: boolean = config.url !== "login";
+    if (localStorage.getItem("accessToken") !== "" && correctPath) {
+        config.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`;
     }
-}
+    return config;
+    },
+
+    (error: AxiosError) => {
+        return Promise.reject(error);
+    }
+)
 
