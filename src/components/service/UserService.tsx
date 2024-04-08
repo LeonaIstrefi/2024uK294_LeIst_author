@@ -1,5 +1,5 @@
-import { defaultAxiosInstance } from "./Api";
 import { AxiosInstance } from "axios";
+import { defaultAxiosInstance } from "./Api";
 
 const UserService = (api: AxiosInstance = defaultAxiosInstance) => ({
     logIn : async (email: string, password: string) => {

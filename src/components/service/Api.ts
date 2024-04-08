@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, {  AxiosInstance, InternalAxiosRequestConfig } from "axios";
  
 const BASE_URL = `http://localhost:3030`;
  
@@ -13,10 +13,6 @@ defaultAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfi
         config.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`;
     }
     return config;
-    },
-
-    (error: AxiosError) => {
-        return Promise.reject(error);
     }
 )
 
