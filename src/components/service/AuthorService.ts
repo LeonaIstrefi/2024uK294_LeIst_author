@@ -17,7 +17,28 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
         },
       };
 
-      const response = await api.get("authors", config);
+      const response = await api.get(`/author?_limit=20`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getAuthorById: async (authorId) => {
+    try {
+      await UserService().logIn("leonaistrefi@mail.com", "1234");
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        throw new Error("No Access token in local storage available");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      const response = await api.get(`author/${authorId}`, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -40,7 +61,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
 
       const data = { Name, Birthday };
 
-      const response = await api.post("authors", data, config);
+      const response = await api.post("author", data, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -61,7 +82,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
         },
       };
 
-      const response = await api.delete(`authors/${authorId}`, config);
+      const response = await api.delete(`author/${authorId}`, config);
       return response.data;
     } catch (error) {
       throw error;
