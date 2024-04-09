@@ -5,7 +5,7 @@ import { AxiosInstance } from "axios";
 const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
   getAllAuthors: async () => {
     try {
-      await UserService("leona@mail.com", "1234");
+      await UserService().logIn("leonaistrefi@mail.com", "1234");
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         throw new Error("No Access token in local storage available");
@@ -26,7 +26,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
 
   postAuthor: async (Name, Birthday) => {
     try {
-      await UserService("leona@mail.com", "1234");
+      await UserService().logIn("leonaistrefi@mail.com", "1234");
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         throw new Error("No Access token in local storage available");
@@ -49,7 +49,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
 
   deleteAuthor: async (authorId) => {
     try {
-      await UserService("leona@mail.com", "1234");
+      await UserService().logIn("leonaistrefi@mail.com", "1234");
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         throw new Error("No Access token in local storage available");
