@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 
-import Registration from './components/pages/Registration'
+
 import AuthorPage from './components/pages/AuthorPage'
+import Registration from './components/pages/Registration'
 
 
 
@@ -22,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

@@ -11,4 +11,4 @@ const UserService = (api: AxiosInstance = defaultAxiosInstance) => ({
     }
 })
 
-export default UserService
+export default UserService;
