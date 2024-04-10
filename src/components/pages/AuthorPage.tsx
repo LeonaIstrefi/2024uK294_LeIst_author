@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import AuthorService from "../service/AuthorService";
 import NavBar from "../molecules/NavBar";
 import DetailsButton from "../atoms/DetailsButton";
+import UpdateButton from "../atoms/UpdateButton";
 
 function AuthorPage() {
   const [APIAuthorData, setAPIAuthorData] = useState([]);
@@ -62,14 +63,17 @@ function AuthorPage() {
                 <TableCell align="right">{author.author_name}</TableCell>
                 <TableCell align="right">{author.birth_date}</TableCell>
                 <TableCell align="right">
-                  <IconButton
+                  
+                    <DetailsButton authorId={undefined} />
+                    <UpdateButton authorId={0} />
+                    <IconButton
                     edge="end"
                     aria-label="delete"
                     onClick={() => deleteOnClickHandler(author.id)}
                   >
-                    <DetailsButton authorId={undefined} />
                     <DeleteIcon />
                   </IconButton>
+                  
                 </TableCell>
               </TableRow>
             ))}

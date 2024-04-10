@@ -23,7 +23,7 @@ function DetailedAuthors() {
         setName(authorData.Name);
         setbirthday(authorData.birthday);
       } catch (error) {
-        
+        alert("cant get the author data.");
       }
     };
 
