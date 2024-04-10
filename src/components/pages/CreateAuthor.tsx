@@ -26,10 +26,10 @@ const CreateAuthor = () => {
           }}
 
 
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values) => {
           console.log(values)
           
-          AuthorService().postAuthor(values).then(response => (navigate(`/author`,{replace:true} ))).catch(); 
+          AuthorService().postAuthor(values).then(() => (navigate(`/author`,{replace:true} ))).catch(); 
         }}
       >
         {({ isSubmitting, isValid }) => (

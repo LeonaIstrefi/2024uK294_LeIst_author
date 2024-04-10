@@ -17,8 +17,9 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
         },
       };
 
-      const response = await api.get(`/author?_limit=20`);
-      return response.data;
+      const response = await api.get(`/author`, config); 
+      const author = response.data.slice(-20)
+      return author;
     } catch (error) {
       throw error;
     }
@@ -45,7 +46,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
     }
   },
 
-  postAuthor: async (Name, Birthday) => {
+  postAuthor: async (data) => {
     try {
       await UserService().logIn("leonaistrefi@mail.com", "1234");
       const accessToken = localStorage.getItem("accessToken");
@@ -58,8 +59,6 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
           Authorization: `Bearer ${accessToken}`,
         },
       };
-
-      const data = { Name, Birthday };
 
       const response = await api.post("author", data, config);
       return response.data;
