@@ -88,6 +88,29 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
       throw error;
     }
   },
+
+  putAuthor: async (authorId, Name, Birthday) => {
+    try {
+      await UserService().logIn("leonaistrefi@mail.com", "1234");
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        throw new Error("No Access token in local storage available");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      const data = { Name, Birthday };
+
+      const response = await api.put(`author/${authorId}`, data, config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 });
 
 export default AuthorService;

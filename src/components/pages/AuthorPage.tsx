@@ -6,10 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import AuthorService from "../service/AuthorService";
-import { Description } from "@mui/icons-material";
+import NavBar from "../molecules/NavBar";
+import DetailsButton from "../atoms/DetailsButton";
 
 function AuthorPage() {
   const [APIAuthorData, setAPIAuthorData] = useState([]);
@@ -40,7 +41,8 @@ function AuthorPage() {
 
   return (
     <>
-      <Description />
+    <NavBar />
+     
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -65,6 +67,7 @@ function AuthorPage() {
                     aria-label="delete"
                     onClick={() => deleteOnClickHandler(author.id)}
                   >
+                    <DetailsButton authorId={undefined} />
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthorService from "../service/AuthorService";
+import NavBar from "../molecules/NavBar";
 
 
 function DetailedAuthors() {
@@ -22,7 +23,7 @@ function DetailedAuthors() {
         setName(authorData.Name);
         setbirthday(authorData.birthday);
       } catch (error) {
-        alert("Error fetching car data.");
+        
       }
     };
 
@@ -32,7 +33,7 @@ function DetailedAuthors() {
   return (
     <>
       
-
+    <NavBar />
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <CardContent>

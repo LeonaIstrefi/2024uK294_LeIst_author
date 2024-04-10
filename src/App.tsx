@@ -5,6 +5,8 @@ import './App.css'
 import AuthorPage from './components/pages/AuthorPage'
 import Registration from './components/pages/Registration'
 import DetailedAuthors from './components/pages/DetailedAuthors'
+import CreateAuthor from './components/pages/CreateAuthor'
+
 
 
 
@@ -17,7 +19,9 @@ function App() {
     <Routes>
         <Route path="/" element={<Registration/>}/>
         <Route path="/author" element={<AuthorPage />}/>
-        <Route path="/authorbyid" element={<DetailedAuthors />}/>
+        <Route path="/author/:authorId" element={<DetailedAuthors />}/>
+        <Route path="/create" element={<CreateAuthor />}/>
+       
 
       </Routes>
     </BrowserRouter>      
