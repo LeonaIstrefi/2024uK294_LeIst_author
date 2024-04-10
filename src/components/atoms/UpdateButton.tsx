@@ -10,7 +10,7 @@ interface UpdateButtonProps {
 
 const UpdateButton = ({ authorId }: UpdateButtonProps) => {
   return (
-    <Link to={"/author/update"}>
+    <Link to={`/author/update/${authorId}`}>
       
       <IconButton
       >

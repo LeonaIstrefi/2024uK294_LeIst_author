@@ -64,8 +64,8 @@ function AuthorPage() {
                 <TableCell align="right">{author.birth_date}</TableCell>
                 <TableCell align="right">
                   
-                    <DetailsButton authorId={undefined} />
-                    <UpdateButton authorId={0} />
+                    <DetailsButton authorId={author.id} />
+                    <UpdateButton authorId={author.id} />
                     <IconButton
                     edge="end"
                     aria-label="delete"

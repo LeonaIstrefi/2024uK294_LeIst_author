@@ -103,7 +103,7 @@ const AuthorService = (api: AxiosInstance = defaultAxiosInstance) => ({
         },
       };
 
-      const data = { Name, Birthday };
+      const data = { author_name:Name, birth_date:Birthday };
 
       const response = await api.put(`author/${authorId}`, data, config);
       return response.data;

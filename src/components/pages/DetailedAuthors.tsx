@@ -20,8 +20,8 @@ function DetailedAuthors() {
     const fetchData = async () => {
       try {
         const authorData = await AuthorService().getAuthorById(authorId);
-        setName(authorData.Name);
-        setbirthday(authorData.birthday);
+        setName(authorData.author_name);
+        setbirthday(authorData.birth_date);
       } catch (error) {
         alert("cant get the author data.");
       }

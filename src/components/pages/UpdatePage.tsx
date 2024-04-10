@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthorService from "../service/AuthorService";
 import NavBar from "../molecules/NavBar";
 
@@ -10,7 +10,7 @@ function UpdatePage() {
   const { authorId } = useParams(); 
   const [name, setName] = useState("");
   const [birthday, setbirthday] = useState("");
-
+const nav = useNavigate();
   useEffect(() => {
     
     const fetchData = async () => {
@@ -19,7 +19,7 @@ function UpdatePage() {
         setName(authorData.Name);
         setbirthday(authorData.Birthday);
       } catch (error) {
-        alert("Cannot get the data from author");
+        alert("Error fetching author data");
       }
     };
 
@@ -30,6 +30,7 @@ function UpdatePage() {
     try {
       await AuthorService().putAuthor(authorId, name, birthday);
       alert("Updated Author successful.")
+      nav("/author")
     } catch (error) {
       alert("Couldnt update the Author");
     }
@@ -61,8 +62,6 @@ function UpdatePage() {
           <Button
             variant="contained"
             onClick={updateOnClickHandler}
-            component={Link}
-            to="/author"
           >
            Save
           </Button>
