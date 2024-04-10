@@ -2,22 +2,23 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AuthorService from "../service/AuthorService";
 import NavBar from "../molecules/NavBar";
 
 function UpdatePage() {
-  const { authorId } = useParams(); 
+  const { authorId } = useParams();
   const [name, setName] = useState("");
-  const [birthday, setbirthday] = useState("");
-const nav = useNavigate();
+  const [birthday, setBirthday] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const authorData = await AuthorService().getAuthorById(authorId);
         setName(authorData.Name);
-        setbirthday(authorData.Birthday);
+        setBirthday(authorData.Birthday);
       } catch (error) {
         alert("Error fetching author data");
       }
@@ -25,45 +26,54 @@ const nav = useNavigate();
 
     fetchData();
   }, [authorId]);
+  
 
   const updateOnClickHandler = async () => {
+    if (!name && !birthday) { // ! heisst es hat keinen Wert 
+      setError("Author Name or Birthday is required.");
+      return;
+    }
+
+if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) {
+  setError("Invalid Birthday format. Please use YYYY-MM-DD.");
+  return;
+}
+
     try {
       await AuthorService().putAuthor(authorId, name, birthday);
-      alert("Updated Author successful.")
-      nav("/author")
+      alert("Updated Author successful.");
+      navigate("/author");
     } catch (error) {
-      alert("Couldnt update the Author");
+      alert("Couldn't update the Author");
     }
   };
+
   return (
     <>
       <NavBar />
-  
+
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Typography>
             <TextField
-              id="margin-normal"
-              label="Name"
+              id="name"
+              label="author_name"
               value={name}
-              onChange={(e) => setName(e.target.value)} 
+              onChange={(e) => setName(e.target.value)}
               variant="standard"
             />
             <br />
             <TextField
-              id="margin-normal"
-              label="Birthday"
-              
+              id="birthday"
+              label="Birth_date"
               value={birthday}
-              onChange={(e) => setbirthday(e.target.value)}
+              onChange={(e) => setBirthday(e.target.value)}
               variant="standard"
             />
+            {error && <Typography color="error">{error}</Typography>}
           </Typography>
-          <Button
-            variant="contained"
-            onClick={updateOnClickHandler}
-          >
-           Save
+          <Button variant="contained" onClick={updateOnClickHandler}>
+            Save
           </Button>
         </Grid>
       </Grid>

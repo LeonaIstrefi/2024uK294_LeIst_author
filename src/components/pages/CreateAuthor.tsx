@@ -3,12 +3,14 @@ import Card from "@mui/material/Card";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import AuthorService from "../service/AuthorService";
 import { useNavigate } from "react-router";
+import NavBar from "../molecules/NavBar";
 
 const CreateAuthor = () => {
   const navigate = useNavigate();
   
   return (
     <>
+    <NavBar />
       <Formik
         initialValues={{
           author_name: "",
@@ -24,6 +26,7 @@ const CreateAuthor = () => {
             }
             return errors;
           }}
+          
 
 
         onSubmit={(values) => {
